@@ -1,33 +1,32 @@
-name: Deploy to GitHub Pages
+name: Build React App
 
 on:
   push:
     branches:
-      - main  # Change this to your default branch if necessary
+      - main
 
 jobs:
-  deploy:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3  # Updated to the latest version
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3  # Updated to the latest version
-      with:
-        node-version: '16'  # Use a version compatible with your project
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' # Specify the version of Node.js you need
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Build
-      run: npm run build
+      - name: Build React app
+        run: npm run build
 
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action # Ensure this version exists
-      with:
-        branch: gh-pages  # The branch to deploy to
-        folder: dist  # The folder containing the build artifacts
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: react-build
+          path: dist/ # This is the default build folder for Create React App

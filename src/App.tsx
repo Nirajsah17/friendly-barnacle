@@ -18,7 +18,7 @@ const theme = createTheme({
   },
 });
 
-const socket = io('http://93.127.172:3001');
+const socket = io('http://93.127.172.10:3001');
 const peer = new Peer();
 
 function App() {
@@ -85,9 +85,6 @@ function App() {
       <CssBaseline />
       <Container maxWidth="sm">
         <Box sx={{ my: 4 }}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Random Chat App
-          </Typography>
           {!connected ? (
             <Button
               variant="contained"
