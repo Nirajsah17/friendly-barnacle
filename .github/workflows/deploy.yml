@@ -1,4 +1,4 @@
-name: Build React App
+name: Build and Deploy React App
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # Specify the version of Node.js you need
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
@@ -25,8 +25,8 @@ jobs:
       - name: Build React app
         run: npm run build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: react-build
-          path: dist/ # This is the default build folder for Create React App
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
