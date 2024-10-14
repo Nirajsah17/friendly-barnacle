@@ -18,7 +18,7 @@ const theme = createTheme({
   },
 });
 
-const socket = io('http://localhost:3001');
+const socket = io('http://93.127.172:3001');
 const peer = new Peer();
 
 function App() {
@@ -66,7 +66,7 @@ function App() {
 
   const handleSendMessage = () => {
     if (inputMessage.trim() && connected) {
-      peer.connections[Object.keys(peer.connections)[0]][0].send(inputMessage);
+      (peer.connections as { [key: string]: any })[Object.keys(peer.connections)[0]][0].send(inputMessage);
       setMessages((prevMessages) => [...prevMessages, `You: ${inputMessage}`]);
       setInputMessage('');
     }
@@ -74,7 +74,7 @@ function App() {
 
   const handleDisconnect = () => {
     Object.values(peer.connections).forEach((conns) => {
-      conns.forEach((conn) => conn.close());
+      conns.forEach((conn: any) => conn.close());
     });
     setConnected(false);
     setMessages([]);
