@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' 
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
@@ -24,9 +24,13 @@ jobs:
       - name: Build React app
         run: npm run build
 
+      # Check if the assets folder exists after the build
+      - name: Check build output
+        run: ls -R dist
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          force_orphan: true  
+          force_orphan: true
